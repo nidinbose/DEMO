@@ -1,100 +1,188 @@
 import React from "react";
+import { FaYoutube, FaTwitter, FaInstagram, FaLinkedin, FaFacebook, FaPinterest } from 'react-icons/fa';
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-white py-10">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-         
+    <div className="bg-white border p-6 text-white px-4 md:px-16 w-full pb-[15vh] md:pb-[39vh] lg:pb-[45vh] xl:pb-[2vh] 2xl:pb-[2vh]">
+      <div className="container mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 text-gray-500">
           <div>
-            <h2 className="text-xl font-bold mb-4">Explore Countries</h2>
-            <ul className="space-y-2">
-              <li>USA</li>
-              <li>Canada</li>
-              <li>UK</li>
-              <li>Australia</li>
-              <li>Germany</li>
-              <li>France</li>
-            </ul>
-          </div>
-          <div>
-            <h2 className="text-xl font-bold mb-4">Contact Us</h2>
-            <ul className="space-y-2">
-              <li>
-                <span className="font-semibold">Email:</span>{" "}
-                support@studyabroad.com
-              </li>
-              <li>
-                <span className="font-semibold">Phone:</span> +1 234 567 890
-              </li>
-              <li>
-                <span className="font-semibold">Address:</span> 1234 Elm Street,
-                City, Country
-              </li>
+            <h3 className="font-bold text-xl mb-4">ABOUT US</h3>
+            <ul className="">
+              <li>About Y Axis</li>
+              <li>Careers</li>
+              <li>CSR</li>
+              <li>Office Network</li>
+              <li>Press and News</li>
             </ul>
           </div>
 
-           <div>
-            <h2 className="text-xl font-bold mb-4">Follow Us</h2>
-            <ul className="flex space-x-4">
-              <li>
-                <a
-                  href="#"
-                  className="text-blue-500 hover:text-white transition duration-300"
-                  aria-label="Facebook"
-                >
-                  <svg
-                    className="w-6 h-6"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M22.675 0h-21.35c-.733 0-1.325.592-1.325 1.325v21.351c0 .733.592 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.894-4.785 4.659-4.785 1.325 0 2.463.099 2.793.143v3.24h-1.916c-1.504 0-1.794.715-1.794 1.764v2.309h3.587l-.467 3.622h-3.12v9.293h6.116c.733 0 1.325-.591 1.325-1.324v-21.35c0-.733-.592-1.325-1.325-1.325z" />
-                  </svg>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-blue-400 hover:text-white transition duration-300"
-                  aria-label="Twitter"
-                >
-                  <svg
-                    className="w-6 h-6"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M24 4.557c-.883.392-1.83.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.723-.951.563-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-2.723 0-4.93 2.207-4.93 4.93 0 .386.043.762.127 1.124-4.094-.205-7.725-2.166-10.158-5.144-.424.728-.666 1.574-.666 2.476 0 1.71.87 3.217 2.188 4.101-.807-.026-1.566-.247-2.229-.616v.062c0 2.388 1.698 4.384 3.946 4.838-.413.112-.849.171-1.296.171-.317 0-.626-.031-.928-.089.627 1.956 2.445 3.379 4.6 3.419-1.685 1.319-3.809 2.106-6.115 2.106-.397 0-.79-.023-1.177-.069 2.179 1.397 4.768 2.213 7.548 2.213 9.056 0 14.009-7.514 14.009-14.009 0-.213-.005-.426-.015-.637.961-.694 1.797-1.562 2.457-2.548z" />
-                  </svg>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-pink-600 hover:text-white transition duration-300"
-                  aria-label="Instagram"
-                >
-                  <svg
-                    className="w-6 h-6"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M12 2.163c3.204 0 3.584.012 4.849.07 1.259.058 2.152.248 2.907.512.773.271 1.422.631 2.062 1.271.639.639 1 1.289 1.271 2.062.264.755.454 1.648.512 2.907.058 1.265.07 1.645.07 4.849s-.012 3.584-.07 4.849c-.058 1.259-.248 2.152-.512 2.907-.271.773-.631 1.422-1.271 2.062-.639.639-1.289 1-2.062 1.271-.755.264-1.648.454-2.907.512-1.265.058-1.645.07-4.849.07s-3.584-.012-4.849-.07c-1.259-.058-2.152-.248-2.907-.512-.773-.271-1.422-.631-2.062-1.271-.639-.639-1-1.289-1.271-2.062-.264-.755-.454-1.648-.512-2.907-.058-1.265-.07-1.645-.07-4.849s.012-3.584.07-4.849c.058-1.259.248-2.152.512-2.907.271-.773.631-1.422 1.271-2.062.639-.639 1.289-1 2.062-1.271.755-.264 1.648-.454 2.907-.512 1.265-.058 1.645-.07 4.849-.07zm0-2.163c-3.259 0-3.667.012-4.947.071-1.271.058-2.548.248-3.463.512-.99.274-1.854.632-2.708 1.486-.854.854-1.211 1.718-1.486 2.708-.264.915-.454 2.192-.512 3.463-.059 1.28-.071 1.688-.071 4.947s.012 3.667.071 4.947c.058 1.271.248 2.548.512 3.463.274.99.632 1.854 1.486 2.708.854.854 1.718 1.211 2.708 1.486.915.264 2.192.454 3.463.512 1.28.059 1.688.071 4.947.071s3.667-.012 4.947-.071c1.271-.058 2.548-.248 3.463-.512.99-.274 1.854-.632 2.708-1.486.854-.854 1.211-1.718 1.486-2.708.264-.915.454-2.192.512-3.463.059-1.28.071-1.688.071-4.947s-.012-3.667-.071-4.947c-.058-1.271-.248-2.548-.512-3.463-.274-.99-.632-1.854-1.486-2.708-.854-.854-1.718-1.211-2.708-1.486-.915-.264-2.192-.454-3.463-.512-1.28-.059-1.688-.071-4.947-.071z" />
-                    <path d="M12 5.838c-3.403 0-6.162 2.76-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.76 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.325c-2.296 0-4.162-1.866-4.162-4.162s1.866-4.162 4.162-4.162 4.162 1.866 4.162 4.162-1.866 4.162-4.162 4.162zm6.406-11.845c-.796 0-1.441.645-1.441 1.441s.645 1.441 1.441 1.441 1.441-.645 1.441-1.441-.645-1.441-1.441-1.441z" />
-                  </svg>
-                </a>
-              </li>
+          <div>
+            <h3 className="font-bold text-xl mb-4">TESTIMONIALS</h3>
+            <ul className="">
+              <li>Success Videos</li>
+              <li>Customer Reviews</li>
+              <li>Social Reviews</li>
+              <li>Visa Success</li>
             </ul>
+          </div>
+
+          <div>
+            <h3 className="font-bold text-xl mb-4">BLOGS</h3>
+            <ul>
+              <li>Immigration News</li>
+              <li>Immigration Blog</li>
+              <li>Overseas Jobs</li>
+              <li>Newsletter</li>
+              <li>Visa Stories</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="font-bold text-xl mb-4">LANGUAGES</h3>
+            <h4 className="text-lg font-semibold">Indian Languages</h4>
+            <ul>
+              <li>Hindi</li>
+              <li>Tamil</li>
+              <li>Gujarati</li>
+              <li>Telugu</li>
+              <li>Marathi</li>
+              <li>Kannada</li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="font-bold text-xl mb-4">FORIGN LANGUAGES</h3>
+       
+            <ul>
+            <li>Arabic</li>
+              <li>French</li>
+              <li>Chinese</li>
+              <li>German</li>
+              <li>Korean</li>
+              <li>Ukrainian</li>
+              <li>Italian</li>
+            </ul>
+          </div>
+
+         
+        </div>
+
+           <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 text-gray-500">
+          <div>
+            <h3 className="font-bold text-xl mb-4 ">CONTACT US</h3>
+            <h4 className="text-lg font-semibold ">India Y-Axis</h4>
+            <p>+91 7670800001</p>
+            <p>info@y-axis.com</p>
+            <p>www.benifits.com</p>
+          </div>
+
+          <div>
+            <h4 className="text-lg font-semibold">Australia</h4>
+            <p>+61 399394818</p>
+            <p>australia@y-axis.com.au</p>
+            <p>www.benifits.com.au</p>
+          </div>
+
+          <div>
+            <h4 className="text-lg font-semibold">UAE</h4>
+            <p>+971 (0)42483900</p>
+            <p>dubai@y-axis.com</p>
+            <p>www.benifits.ae</p>
+          </div>
+
+          <div>
+            <h4 className="text-lg font-semibold">UK</h4>
+            <p>+44 1253226009</p>
+            <p>info@bnifits.co.uk</p>
+            <p>www.benifits.co.uk</p>
+          </div>
+
+          <div>
+            <h4 className="text-lg font-semibold">Canada</h4>
+            <p>+1 226 243 2213</p>
+            <p>info@y-axis.ca</p>
+            <p>www.benifits.ca</p>
           </div>
         </div>
 
-                <div className="text-center mt-10 text-sm">
-          &copy; 2024 Study Abroad. All rights reserved.
+              <div className="mt-8">
+          <h3 className="font-bold text-xl mb-4 text-red-600">FOLLOW US</h3>
+          <div className="flex flex-wrap space-x-4">
+      <a
+        href="https://www.youtube.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-gray-500 hover:text-red-500 flex items-center space-x-2"
+      >
+        <FaYoutube className="text-xl" />
+        <span>YouTube</span>
+      </a>
+      <a
+        href="https://www.twitter.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-gray-500 hover:text-red-500 flex items-center space-x-2"
+      >
+        <FaTwitter className="text-xl" />
+        <span>Twitter</span>
+      </a>
+      <a
+        href="https://www.instagram.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-gray-500 hover:text-red-500 flex items-center space-x-2"
+      >
+        <FaInstagram className="text-xl" />
+        <span>Instagram</span>
+      </a>
+      <a
+        href="https://www.linkedin.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-gray-500 hover:text-red-500 flex items-center space-x-2"
+      >
+        <FaLinkedin className="text-xl" />
+        <span>LinkedIn</span>
+      </a>
+      <a
+        href="https://www.facebook.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-gray-500 hover:text-red-500 flex items-center space-x-2"
+      >
+        <FaFacebook className="text-xl" />
+        <span>Facebook</span>
+      </a>
+      <a
+        href="https://www.pinterest.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-gray-500 hover:text-red-500 flex items-center space-x-2"
+      >
+        <FaPinterest className="text-xl" />
+        <span>Pinterest</span>
+      </a>
+    </div>
+        </div>
+        <div className="mt-8 flex items-center jutify-center w-full mx-auto">
+          
+          <h3 className="font-bold text-xl mb-4">SUBSCRIBE NEWSLETTER</h3>
+          <form className="flex flex-wrap space-x-2 mx-auto">
+            {/* <input
+              type="email"
+              placeholder="Enter your Email"
+              className="px-4 py-2 text-black w-full md:w-80 rounded-md mb-4 sm:mb-0"
+            /> */}
+            {/* <button className="bg-red-600 text-white px-6 py-2 rounded-md mt-2 sm:mt-0">
+              Submit
+            </button> */}
+          </form>
+          <div className="mx-auto">
+          <img src="https://benefitzintl.com/wp-content/uploads/2024/01/benifitslogo.png"  className="object-cover w-60 h-full" alt="" />
+          </div>
         </div>
       </div>
-    </footer>
+    </div>
   );
 };
 

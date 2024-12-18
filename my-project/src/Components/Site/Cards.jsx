@@ -1,48 +1,85 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./Css/Cards.css";
+import { Link } from "react-router-dom";
 
 const Cards = () => {
-  const countries = [
-    { name: 'France', image: 'https://i.natgeofe.com/k/04665f4a-3f8d-4b62-8ca3-09ce7dfc5a20/france-eiffel-tower_2x3.jpg' },
-    { name: 'Japan', image: 'https://www.pelago.com/img/countries/japan/1201-0821_japan-book-things-to-do-pelago.jpg' },
-    { name: 'Italy', image: 'https://lp-cms-production.imgix.net/2024-08/Italy-Bellagio-Roberto-Moiola-Sysaworld-GettyImages-1283925582-RFE.jpg?fit=crop&w=3840&auto=format&q=75' },
-    { name: 'Australia', image: 'https://www.kayak.co.in/rimg/dimg/43/4b/72c43e11-city-2258-17a3a42c3ab.jpg?width=1600&height=1200&xhint=1597&yhint=1522&crop=true' },
-    { name: 'Canada', image: 'https://www.avanse.com/blogs/images/28-mar-2023-blog.jpg' },
-    { name: 'India', image: 'https://bsmedia.business-standard.com/_media/bs/img/article/2024-07/29/full/1722227149-673.jpg?im=FeatureCrop,size=(826,465)' },
-    { name: 'Brazil', image: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/23/22/12/7d/caption.jpg?w=500&h=400&s=1' },
-    { name: 'Paris', image: 'https://images.unsplash.com/photo-1522093007474-d86e9bf7ba6f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGFyaXN8ZW58MHx8MHx8fDA%3D' },
-  ];
-  
+  const [cardDetails, setCardDetails] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchCardDetails = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get("http://localhost:3003/api/getcountry"); 
+        setCardDetails(response.data);
+      } catch (err) {
+        setError(err.message || "Failed to fetch data");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCardDetails();
+  }, []);
+
+  if (loading) {
+    return <div className="text-center">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="text-center text-red-500">Error: {error}</div>;
+  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-500 to-green-500 flex items-center justify-center py-10">
-      <div className="container mx-auto px-6 text-center">
-        <h1 className="text-4xl font-extrabold text-white mb-16">Countries to Visit</h1>
+    <div className="container mx-auto p-4 sm:p-6 border mt-10">
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-6 w-full">
+        <div className="flex flex-col justify-center text-center md:text-left">
+          <h1 className="text-2xl sm:text-3xl font-bold mb-4">
+            Countries to Visit, Work, and Study
+          </h1>
+          <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
+            Explore the top destinations for visas with expert support to help
+            you succeed in work, study, and travel opportunities.
+          </p>
+        </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12">
-          {countries.map((country, index) => (
-            <motion.div
-              key={index}
-              className="relative bg-white rounded-lg shadow-lg overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-                      <motion.img
-                src={country.image}
-                alt={country.name}
-                className="w-full h-64 bg-cover transition-transform duration-500 hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center text-white opacity-0 hover:opacity-100 transition-opacity duration-300">
-                <p className="text-lg font-bold ">{country.name}</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3 gap-4 px-2 py-5 scroll-container">
+     
+          {cardDetails.map((card) => (
+        <Link to={`/country-deatiles/${card._id}`}>
+                <div key={card.id} className="flex justify-center items-center">
+              <div className="flip-card w-60 h-60 sm:w-72 sm:h-72 lg:w-80 lg:h-80">
+                <div className="flip-card-inner">
+                  <div className="flip-card-front flex flex-col justify-center items-center bg-white border p-6 overflow-hidden h-36 w-36">
+                    <img
+                      src={card.photo}
+                      alt={card.Country}
+                      className="w-full h-3/4 object-cover "
+                    />
+                    <h2 className="text-lg sm:text-xl font-bold py-2 text-center">
+                      {card.Country}
+                    </h2>
+                  </div>
+                  <div className="flip-card-back bg-blue-600 text-white flex flex-col justify-center items-center">
+                    <h2 className="text-2xl font-bold mb-2">{card.Country}</h2>
+                    <p className="text-sm sm:text-base">
+                      <strong>Visit Visa:</strong> {card.Visitvisa}
+                    </p>
+                    <p className="text-sm sm:text-base mt-1">
+                      <strong>Work Visa:</strong> {card.Workvisa}
+                    </p>
+                    <p className="text-sm sm:text-base mt-1">
+                      <strong>Study Visa:</strong> {card.Studyvisa}
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div className="p-6 ">
-                <h2 className="text-3xl font-bold text-gray-500 mb-2">{country.name}</h2>
-                <p className="text-cyan-600">
-                  Explore the beauty of {country.name} and its rich culture.
-                </p>
-              </div>
-            </motion.div>
+            </div>
+        </Link>
           ))}
+         
         </div>
       </div>
     </div>
@@ -50,4 +87,3 @@ const Cards = () => {
 };
 
 export default Cards;
-

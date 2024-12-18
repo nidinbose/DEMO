@@ -1,32 +1,37 @@
 import React from 'react'
-import Home from './Components/Site/Home'
-import Cards from './Components/Site/Cards'
-import JobConsultancy from './Components/Site/JobConsultancy'
-import VisitingVisa from './Components/Site/VisitingVisa'
-import Studyabroad from './Components/Studyabroad'
-import Service from './Components/Site/Service'
+import { BrowserRouter,Route,Routes } from 'react-router-dom'
+import Site from './Components/Site/Site'
+import AddCountry from './Components/AddCountry'
+import Visa from './Components/Second/Visa'
 import Navbar from './Components/Site/Navbar'
 import Footer from './Components/Site/Footer'
-import Consultant from './Components/Site/Consaltant'
-import HappyClients from './Components/Site/HappyClients'
+import CountryDeatiles from './Components/CountryDeatiles'
+import Study from './Components/Second/Study'
+import Job from './Components/Second/Job'
 
 const App = () => {
   return (
-    <div className='lg:pb-[45vh] xl:pb-4'>
 
+<div>
+
+<BrowserRouter>
 <Navbar/>
-      <Home/>
-      <Cards/>
-      <Service/>
-      <JobConsultancy/>
-      <VisitingVisa/>
-      <Studyabroad/>
-      <Consultant/>
-      <HappyClients/>
-      <Footer/>
+<Routes>
 
-    </div>
-  )
+  <Route path='/' Component={Site}/>
+  <Route path='/addcountry' Component={AddCountry}/>
+  <Route path='/visiting-visa' Component={Visa}/>
+  <Route path='/study' Component={Study}/>
+  <Route path='/job' Component={Job}/>
+  <Route path='/country-deatiles/:id' Component={CountryDeatiles}/>
+
+
+</Routes>
+<Footer/>
+</BrowserRouter>
+
+
+</div>  )
 }
 
 export default App

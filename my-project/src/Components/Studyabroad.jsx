@@ -1,37 +1,124 @@
-import React from 'react';
+import React, { useState } from 'react';
+import emailjs from 'emailjs-com';
 
 const Studyabroad = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    studentType: '',
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .send(
+        'YOUR_SERVICE_ID', 
+        'YOUR_TEMPLATE_ID',
+        formData,
+        'YOUR_USER_ID' 
+      )
+      .then(
+        (response) => {
+          console.log('Email sent successfully:', response);
+        },
+        (error) => {
+          console.error('Email sending error:', error);
+        }
+      );
+  };
+
   return (
     <div className="container mx-auto mt-10 bg-white p-8 bg-red-600 border border-gray-200">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ">
-           <div className="flex justify-center items-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="flex justify-center items-center">
           <img
-            src="https://chetanyacareers.com/wp-content/uploads/2024/01/study-abroad-3.jpg"
+            src="https://www.studyabroadudaipur.com/wp-content/uploads/2016/11/banner-guidence.jpg"
             alt="Study Abroad"
-            className="max-w-full h-auto shadow-md"
+            className="max-w-full h-auto xl:h-96 bg-cover"
           />
         </div>
         <div className="flex flex-col justify-center space-y-6">
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-800 leading-tight">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-800">
             Explore Study Abroad Opportunities
           </h1>
-          <p className="text-lg sm:text-xl text-gray-700">
+          <p className="text-sm font-semibold text-gray-700">
             Discover global education programs that open doors to top universities and unique cultural experiences.
             Whether you're planning to study in the USA, UK, Canada, or Australia, our expert advisors are here to help
             with admission processes, visa applications, and beyond.
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            <button className="bg-blue-600 text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition duration-300 w-full">
-              Apply Now
+      <div className=''>
+
+      <form onSubmit={handleSubmit} className="space-y-4 ">
+            <div>
+              <label htmlFor="name" className="text-sm font-semibold text-gray-700">
+                Your Name
+              </label>
+              <input
+                type="text"
+                name="name"
+                id="name"
+                value={formData.name}
+                onChange={handleChange}
+                className="w-full py-3 px-6 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                placeholder="Enter your name"
+                required
+              />
+            </div>
+
+            <div>
+              <label htmlFor="email" className="text-sm font-semibold text-gray-700">
+                Your Email
+              </label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full py-3 px-6 border border-gray-300  focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+
+            <div>
+              <label htmlFor="studentType" className="text-sm font-semibold text-gray-700">
+                Student Type
+              </label>
+              <select
+                name="studentType"
+                id="studentType"
+                value={formData.studentType}
+                onChange={handleChange}
+                className="w-full py-3 px-6 border border-gray-300  focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                required
+              >
+                <option value="">Select your type</option>
+                <option value="School Students">School Students</option>
+                <option value="Graduate">Graduate</option>
+                <option value="Professional">Professional</option>
+                <option value="Parent">Parent</option>
+              </select>
+            </div>
+
+            <button
+              type="submit"
+              className="bg-white text-black font-semibold py-3 px-8 border border-emerald-500 hover:bg-emerald-500 hover:text-white transition duration-300 w-full"
+            >
+              Next
             </button>
-            <button className="bg-green-600 text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-green-700 transition duration-300 w-full">
-              Free Counseling
-            </button>
-            <button className="bg-orange-600 text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-orange-700 transition duration-300 w-full">
-              Scholarship Info
-            </button>
-          </div>
+          </form>
+      </div>
         </div>
       </div>
     </div>

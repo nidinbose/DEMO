@@ -30,9 +30,9 @@ const testimonials = [
 
 const HappyClients = () => {
   return (
-    <div className="bg-gradient-to-r from-blue-50 to-blue-100 py-12">
-      <div className="container mx-auto px-6">
-        <h2 className="text-4xl font-extrabold text-center text-blue-600 mb-8">
+    <div className="bg-white pt-5">
+      <div className="container mx-auto px-6 border">
+        <h2 className="text-4xl font-extrabold text-center text-black mb-8">
           Happy Clients
         </h2>
         <div className="relative overflow-hidden">
