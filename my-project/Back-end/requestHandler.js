@@ -3,11 +3,11 @@ import pkg from 'jsonwebtoken'
 
 export async function addCountry(req,res) {
     try {
-        const { Country, photo, Visitvisa, Studyvisa, Workvisa } = req.body;
-        if (!(Country && photo && Visitvisa && Studyvisa && Workvisa)) {
+        const { Country, photo, Visitvisa, Studyvisa, Workvisa,Heading,Paragraph,About } = req.body;
+        if (!(Country && photo && Visitvisa && Studyvisa && Workvisa&&Heading&&Paragraph&&About)) {
             return res.status(400).json({ error: "Invalid input of data. All fields are required." });
         }
-        await countrySchema.create({ Country, photo, Visitvisa, Workvisa, Studyvisa });
+        await countrySchema.create({ Country, photo, Visitvisa, Workvisa, Studyvisa,Heading,Paragraph,About });
         return res.status(200).json({ message: "Country created successfully." });
     } catch (error) {
         console.error("Error in addCountry:", error.message);

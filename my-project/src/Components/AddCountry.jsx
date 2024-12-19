@@ -8,9 +8,13 @@ const AddCountry = () => {
     Visitvisa: "",
     Studyvisa: "",
     Workvisa: "",
+    Heading: "",
+    Paragraph: "",
+    About: "",
   });
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+
   const convertToBase64 = (file) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -26,7 +30,7 @@ const AddCountry = () => {
       const base64 = await convertToBase64(files[0]);
       setFormData((prev) => ({
         ...prev,
-        photo: base64, 
+        photo: base64,
       }));
     } else {
       setFormData((prev) => ({
@@ -35,6 +39,7 @@ const AddCountry = () => {
       }));
     }
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -67,6 +72,48 @@ const AddCountry = () => {
             onChange={handleChange}
             required
             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="Heading" className="block text-sm font-medium text-gray-700">
+            Heading
+          </label>
+          <input
+            type="text"
+            name="Heading"
+            id="Heading"
+            value={formData.Heading}
+            onChange={handleChange}
+            required
+            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="Paragraph" className="block text-sm font-medium text-gray-700">
+            Paragraph
+          </label>
+          <textarea
+            name="Paragraph"
+            id="Paragraph"
+            value={formData.Paragraph}
+            onChange={handleChange}
+            required
+            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+            rows="3"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="About" className="block text-sm font-medium text-gray-700">
+            About
+          </label>
+          <textarea
+            name="About"
+            id="About"
+            value={formData.About}
+            onChange={handleChange}
+            required
+            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+            rows="4"
           />
         </div>
         <div className="mb-4">

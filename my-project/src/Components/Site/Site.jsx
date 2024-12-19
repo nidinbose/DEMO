@@ -10,6 +10,7 @@ import Consultant from './Consaltant'
 import HappyClients from './HappyClients'
 import Footer from './Footer'
 import Why from '../Why'
+import LatestNews from '../LatestNews'
 
 const Site = () => {
   return (
@@ -19,6 +20,7 @@ const Site = () => {
         
           <Home/>
           <Cards/>
+          <LatestNews/>
           <Service/>
           <JobConsultancy/>
           <VisitingVisa/>

@@ -6,6 +6,6 @@ const router=Router()
 
 router.route('/addcountry').post(request.addCountry )
 router.route('/getcountry').get(request.getCountry )
-router.route('/getdata/:id').get(request.getData )
+router.route('/getdatas/:id').get(request.getData )
 
 export default router;
