@@ -11,6 +11,8 @@ import HappyClients from './HappyClients'
 import Footer from './Footer'
 import Why from '../Why'
 import LatestNews from '../LatestNews'
+import Subscribe from '../Payment&refrel/Subscribe'
+import Referrals from '../Payment&refrel/Refrals'
 
 const Site = () => {
   return (
@@ -25,9 +27,11 @@ const Site = () => {
           <JobConsultancy/>
           <VisitingVisa/>
           <Studyabroad/>
+          <Subscribe/>
           <Why/>
           <Consultant/>
           <HappyClients/>
+          {/* <Referrals/> */}
         
        
         </div>

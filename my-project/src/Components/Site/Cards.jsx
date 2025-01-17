@@ -33,7 +33,7 @@ const Cards = () => {
   }
 
   return (
-    <div className="container mx-auto p-4 sm:p-6 border mt-10">
+    <div className="container mx-auto p-7 sm:p-6 border mt-10">
       <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-6 w-full">
         <div className="flex flex-col justify-center text-center md:text-left">
           <h1 className="text-2xl sm:text-3xl font-bold mb-4">
@@ -45,7 +45,7 @@ const Cards = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3 gap-4 px-2 py-5 scroll-container">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 px-2 py-5 scroll-container">
      
           {cardDetails.map((card) => (
         <Link to={`/country-deatiles/${card._id}`}>
