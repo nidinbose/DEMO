@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const plans = [
   {
-    id: 'plan_xyz', // Replace with Razorpay Plan ID
+    id: 'plan_xyz', 
     title: 'Starter',
     price: 'Free',
     description: 'Free Sign Up',
@@ -18,7 +19,7 @@ const plans = [
     isPopular: false,
   },
   {
-    id: 'plan_abc', // Replace with Razorpay Plan ID
+    id: 'plan_abc', 
     title: 'Business',
     price: '$45.00/Mon',
     description: '7-Day Free Trial',
@@ -32,23 +33,39 @@ const plans = [
     ],
     isPopular: true,
   },
+  {
+    id: 'plan_xyz', 
+    title: 'Starter',
+    price: 'Free',
+    description: 'Free Sign Up',
+    features: [
+      '50 Image generations',
+      '500 Credits',
+      'Monthly 100 Credits Free',
+      'Customer Support',
+      'Dedicated Server',
+      'Priority Generations',
+      '50GB Cloud Storage',
+    ],
+    isPopular: false,
+  },
+  
 ];
 
 const Subscribe = () => {
   const handleSubscribe = async (planId) => {
     try {
-      // Call your backend to create a subscription
-      const response = await fetch('http://localhost:3003/api/create-subscription', {
+          const response = await fetch('http://localhost:3003/api/create-subscription', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ planId, userId: 'user123' }), // Replace with actual user ID
+        body: JSON.stringify({ planId, userId: 'user123' }),
       });
 
       const subscription = await response.json();
 
-      // Initialize Razorpay Checkout
+     
       const options = {
         key: 'YOUR_RAZORPAY_KEY_ID', // Replace with your Razorpay Key ID
         subscription_id: subscription.id, // Use the subscription ID from the backend
@@ -116,13 +133,15 @@ const Subscribe = () => {
                   ))}
                 </ul>
 
-                <button
+            <Link to={`/regester`}>
+            <button
                   type="button"
-                  onClick={() => handleSubscribe(plan.id)}
-                  className="w-full mt-8 px-4 py-2 text-sm text-gray-800 rounded border border-blue-600 bg-transparent hover:bg-blue-600 hover:text-white transition-all"
+                  // onClick={() => handleSubscribe(plan.id)}
+                  className="w-full mt-8 px-4 py-2 text-sm text-gray-800 rounded border border-gray-600 hover:border-green-600  bg-transparent hover:bg-green-500 hover:text-white transition-all"
                 >
                   Get Started
                 </button>
+            </Link>
               </div>
             </div>
           ))}

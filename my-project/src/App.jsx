@@ -8,6 +8,9 @@ import Footer from './Components/Site/Footer'
 import CountryDeatiles from './Components/CountryDeatiles'
 import Study from './Components/Second/Study'
 import Job from './Components/Second/Job'
+import Register from './Components/Authentication/Regester'
+import Login from './Components/Authentication/Login'
+import Refrals from './Components/Payment&refrel/Refrals'
 
 const App = () => {
   return (
@@ -23,7 +26,10 @@ const App = () => {
   <Route path='/visiting-visa' Component={Visa}/>
   <Route path='/study' Component={Study}/>
   <Route path='/job' Component={Job}/>
+  <Route path='/regester' Component={Register}/>
+  <Route path='/login' Component={Login}/>
   <Route path='/country-deatiles/:id' Component={CountryDeatiles}/>
+  <Route path='/refrel' Component={Refrals}/>
 
 
 </Routes>
