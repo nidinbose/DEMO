@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 const testimonials = [
@@ -29,45 +29,79 @@ const testimonials = [
 ];
 
 const HappyClients = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? testimonials.length - 1 : prevIndex - 1
+    );
+  };
+
+
+  useEffect(() => {
+    const interval = setInterval(nextSlide, 5000); 
+    return () => clearInterval(interval); 
+  }, []);
+
   return (
-    <div className="bg-white pt-5">
-      <div className="container mx-auto px-6 border">
-        <h2 className="text-4xl font-extrabold text-center text-black mb-8">
+    <div className="p-12">
+      <div className="container mx-auto px-6">
+        <h2 className="text-5xl font-extrabold text-start text-teal-500 mb-12 font-space-grotesk ">
           Happy Clients
         </h2>
-        <div className="relative overflow-hidden">
-          <motion.div
-            className="flex gap-8 w-max"
-            initial={{ x: "100%" }}
-            animate={{ x: "-100%" }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-          >
-            {testimonials.map((testimonial, index) => (
-           <div
-           key={index}
-           className="min-w-[300px] h-[40vh] p-12 flex-shrink-0 flex items-center text-center bg-white shadow-lg rounded-lg p-6 transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl"
-         >
-           <img
-             src={testimonial.image}
-             alt={testimonial.name}
-             className="w-20 h-20 rounded-full border-4 border-blue-500 mr-6"
-           />
-           <div className="flex flex-col justify-center h-full">
-             <h3 className="text-lg font-semibold text-blue-600 mb-2">
-               {testimonial.name}
-             </h3>
-             <p className="text-gray-700 text-center text-base leading-relaxed">
-               {testimonial.feedback}
-             </p>
-           </div>
-         </div>
-         
-            ))}
-          </motion.div>
+        {/* <hr className="mt-6 mb-7 w-screen"/> */}
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-7">
+          <div className="mx-auto">
+            <img
+              src="https://aramvisas.com/wp-content/uploads/2021/04/skilled-canada.jpg"
+              alt="Happy Clients"
+              className="object-cover"
+            />
+          </div>
+          <div className="relative">
+                      <motion.div
+              className="flex items-center justify-center mt-[10vh]"
+              key={currentIndex}
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -100 }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="max-w-[400px] mx-auto p-6 bg-white border transform transition-transform duration-300 hover:scale-105">
+                <img
+                  src={testimonials[currentIndex].image}
+                  alt={testimonials[currentIndex].name}
+                  className="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-teal-500"
+                />
+                <h3 className="text-lg font-semibold text-teal-600 text-center mb-2">
+                  {testimonials[currentIndex].name}
+                </h3>
+                <p className="text-gray-700 text-center text-base leading-relaxed font-space-grotesk">
+                  {testimonials[currentIndex].feedback}
+                </p>
+              </div>
+            </motion.div>
+
+                        <button
+              className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-teal-500 text-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg hover:bg-teal-500 transition duration-300"
+              onClick={prevSlide}
+            >
+              ❮
+            </button>
+            <button
+              className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-teal-500 text-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg hover:bg-teal-500 transition duration-300"
+              onClick={nextSlide}
+            >
+              ❯
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -13,13 +13,14 @@ import Why from '../Why'
 import LatestNews from '../LatestNews'
 import Subscribe from '../Payment&refrel/Subscribe'
 import Referrals from '../Payment&refrel/Refrals'
+import Floating from './Floating'
 
 const Site = () => {
   return (
-    <div className=''>
+    <div className='overflow-x-hidden'>
 
        
-        
+        <Floating/>
           <Home/>
           <Cards/>
           <LatestNews/>

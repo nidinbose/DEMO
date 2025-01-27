@@ -1,188 +1,144 @@
 import React from "react";
-import { FaYoutube, FaTwitter, FaInstagram, FaLinkedin, FaFacebook, FaPinterest } from 'react-icons/fa';
+import { Link } from "react-router-dom"; 
+import { FaInstagram, FaWhatsapp, FaEnvelope,  } from 'react-icons/fa';
 
 const Footer = () => {
+  const handleWhatsAppClick = () => {
+    const phoneNumber = '6235846558'; 
+    const message = 'Hello! I would like to inquire about...';
+    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+  };
   return (
-    <div className="bg-white border p-6 text-white px-4 md:px-16 w-full pb-[15vh] md:pb-[39vh] lg:pb-[45vh] xl:pb-[2vh] 2xl:pb-[2vh]">
-      <div className="container mx-auto">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 text-gray-500">
-          <div>
-            <h3 className="font-bold text-xl mb-4">ABOUT US</h3>
-            <ul className="">
-              <li>About Y Axis</li>
-              <li>Careers</li>
-              <li>CSR</li>
-              <li>Office Network</li>
-              <li>Press and News</li>
-            </ul>
-          </div>
 
-          <div>
-            <h3 className="font-bold text-xl mb-4">TESTIMONIALS</h3>
-            <ul className="">
-              <li>Success Videos</li>
-              <li>Customer Reviews</li>
-              <li>Social Reviews</li>
-              <li>Visa Success</li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-bold text-xl mb-4">BLOGS</h3>
-            <ul>
-              <li>Immigration News</li>
-              <li>Immigration Blog</li>
-              <li>Overseas Jobs</li>
-              <li>Newsletter</li>
-              <li>Visa Stories</li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-bold text-xl mb-4">LANGUAGES</h3>
-            <h4 className="text-lg font-semibold">Indian Languages</h4>
-            <ul>
-              <li>Hindi</li>
-              <li>Tamil</li>
-              <li>Gujarati</li>
-              <li>Telugu</li>
-              <li>Marathi</li>
-              <li>Kannada</li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="font-bold text-xl mb-4">FORIGN LANGUAGES</h3>
-       
-            <ul>
-            <li>Arabic</li>
-              <li>French</li>
-              <li>Chinese</li>
-              <li>German</li>
-              <li>Korean</li>
-              <li>Ukrainian</li>
-              <li>Italian</li>
-            </ul>
-          </div>
-
-         
+    <footer className="bg-blue-100 text-black-900 py-10">
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div>
+          <img
+            src="https://benefitzintl.com/wp-content/uploads/2024/01/benifitslogo.png" 
+            alt="Benefitz International Logo"
+            className="w-36 rounded mb-4"
+          />
+          <p className="text-sm">
+            We guide students through every step of their journey to secure
+            their dream international degree and are recognized as the leading
+            overseas education consultants in the industry today.
+          </p>
         </div>
 
-           <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 text-gray-500">
-          <div>
-            <h3 className="font-bold text-xl mb-4 ">CONTACT US</h3>
-            <h4 className="text-lg font-semibold ">India Y-Axis</h4>
-            <p>+91 7670800001</p>
-            <p>info@y-axis.com</p>
-            <p>www.benifits.com</p>
-          </div>
-
-          <div>
-            <h4 className="text-lg font-semibold">Australia</h4>
-            <p>+61 399394818</p>
-            <p>australia@y-axis.com.au</p>
-            <p>www.benifits.com.au</p>
-          </div>
-
-          <div>
-            <h4 className="text-lg font-semibold">UAE</h4>
-            <p>+971 (0)42483900</p>
-            <p>dubai@y-axis.com</p>
-            <p>www.benifits.ae</p>
-          </div>
-
-          <div>
-            <h4 className="text-lg font-semibold">UK</h4>
-            <p>+44 1253226009</p>
-            <p>info@bnifits.co.uk</p>
-            <p>www.benifits.co.uk</p>
-          </div>
-
-          <div>
-            <h4 className="text-lg font-semibold">Canada</h4>
-            <p>+1 226 243 2213</p>
-            <p>info@y-axis.ca</p>
-            <p>www.benifits.ca</p>
-          </div>
+         <div>
+          <h3 className="font-bold text-lg mb-4">Social Medias</h3>
+          <ul className="space-y-2">
+            <li>
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center"
+              >
+                <i className="fab fa-facebook mr-2"></i> Facebook
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center"
+              >
+                <i className="fab fa-instagram mr-2"></i> Instagram
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center"
+              >
+                <i className="fab fa-linkedin mr-2"></i> LinkedIn
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://wa.me/your-number"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center"
+              >
+                <i className="fab fa-whatsapp mr-2"></i> WhatsApp
+              </a>
+            </li>
+          </ul>
         </div>
 
-              <div className="mt-8">
-          <h3 className="font-bold text-xl mb-4 text-red-600">FOLLOW US</h3>
-          <div className="flex flex-wrap space-x-4">
-      <a
-        href="https://www.youtube.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-gray-500 hover:text-red-500 flex items-center space-x-2"
-      >
-        <FaYoutube className="text-xl" />
-        <span>YouTube</span>
-      </a>
-      <a
-        href="https://www.twitter.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-gray-500 hover:text-red-500 flex items-center space-x-2"
-      >
-        <FaTwitter className="text-xl" />
-        <span>Twitter</span>
-      </a>
-      <a
-        href="https://www.instagram.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-gray-500 hover:text-red-500 flex items-center space-x-2"
-      >
-        <FaInstagram className="text-xl" />
-        <span>Instagram</span>
-      </a>
-      <a
-        href="https://www.linkedin.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-gray-500 hover:text-red-500 flex items-center space-x-2"
-      >
-        <FaLinkedin className="text-xl" />
-        <span>LinkedIn</span>
-      </a>
-      <a
-        href="https://www.facebook.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-gray-500 hover:text-red-500 flex items-center space-x-2"
-      >
-        <FaFacebook className="text-xl" />
-        <span>Facebook</span>
-      </a>
-      <a
-        href="https://www.pinterest.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-gray-500 hover:text-red-500 flex items-center space-x-2"
-      >
-        <FaPinterest className="text-xl" />
-        <span>Pinterest</span>
-      </a>
-    </div>
+         <div>
+          <h3 className="font-bold text-lg mb-4">Quick Links</h3>
+          <ul className="space-y-2">
+            <li>
+              <Link to="/" className="hover:underline">
+                → Home
+              </Link>
+            </li>
+            <li>
+              <Link to="/about" className="hover:underline">
+                → About Us
+              </Link>
+            </li>
+            <li>
+              <Link to="/immigration" className="hover:underline">
+                → Immigration
+              </Link>
+            </li>
+            <li>
+              <Link to="/study" className="hover:underline">
+                → Study Abroad
+              </Link>
+            </li>
+            <li>
+              <Link to="/contact" className="hover:underline">
+                → Contact Us
+              </Link>
+            </li>
+          </ul>
         </div>
-        <div className="mt-8 flex items-center jutify-center w-full mx-auto">
-          
-          <h3 className="font-bold text-xl mb-4">SUBSCRIBE NEWSLETTER</h3>
-          <form className="flex flex-wrap space-x-2 mx-auto">
-            {/* <input
-              type="email"
-              placeholder="Enter your Email"
-              className="px-4 py-2 text-black w-full md:w-80 rounded-md mb-4 sm:mb-0"
-            /> */}
-            {/* <button className="bg-red-600 text-white px-6 py-2 rounded-md mt-2 sm:mt-0">
-              Submit
-            </button> */}
-          </form>
-          <div className="mx-auto">
-          <img src="https://benefitzintl.com/wp-content/uploads/2024/01/benifitslogo.png"  className="object-cover w-60 h-full" alt="" />
-          </div>
+
+            <div>
+          <h3 className="font-bold text-lg mb-4">Office Address</h3>
+          <p className="text-sm">
+            Benefitz International Consultancy Pvt Ltd <br />
+            Genext Building, near Thekkinkadu Maidan, Marar Road, Thrissur,
+            Kerala 680001
+          </p>
+          <p className="mt-4">
+            <a href="tel:+916235846558" className="block hover:underline">
+              <i className="fas fa-phone mr-2"></i> +91 6235846558
+            </a>
+            <a href="tel:+918089319608" className="block hover:underline">
+              <i className="fas fa-phone mr-2"></i> +91 80893 19608
+            </a>
+            <a
+              href="mailto:benefitzintl@gmail.com"
+              className="block hover:underline"
+            >
+              <i className="fas fa-envelope mr-2"></i> benefitzintl@gmail.com
+            </a>
+          </p>
         </div>
       </div>
-    </div>
+      <div className="mt-10 text-center border-t border-black/10 pt-4 text-sm">
+        <p>
+          Copyright © 2024 Benefitz, All rights reserved. Powered by Quick Tech
+          
+        </p>
+      </div>
+      <button
+      onClick={handleWhatsAppClick}
+      className="fixed bottom-12 right-10 bg-green-400 text-white rounded-full p-4 shadow-lg hover:bg-green-600 transition-all"
+    >
+      <FaWhatsapp size={24} />
+    </button>
+    </footer>
   );
 };
 

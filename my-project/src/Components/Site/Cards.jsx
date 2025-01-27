@@ -33,13 +33,15 @@ const Cards = () => {
   }
 
   return (
-    <div className="container mx-auto p-7 sm:p-6 border mt-10">
-      <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-6 w-full">
+    <div className="container mx-auto p-7 sm:p-6 p-6 border-b mt-10">
+      <h1 className="font-barlow text-5xl font-semibold text-teal-500 p-6">Countries we deals with</h1>
+      <hr  className="mb-5 mt-5"/>
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-6 w-full p-6">
         <div className="flex flex-col justify-center text-center md:text-left">
           <h1 className="text-2xl sm:text-3xl font-bold mb-4">
-            Countries to Visit, Work, and Study
+            Countries to <span className="text-teal-500">visit</span>, <span className="text-teal-500">Work</span>, and <span className="text-teal-500">Study</span>
           </h1>
-          <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
+          <p className="text-gray-700 text-sm sm:text-base leading-relaxed font-barlow">
             Explore the top destinations for visas with expert support to help
             you succeed in work, study, and travel opportunities.
           </p>
