@@ -7,8 +7,10 @@ const router=Router()
 router.route('/addcountry').post(request.addCountry )
 router.route('/getcountry').get(request.getCountry )
 router.route('/getdatas/:id').get(request.getData )
-router.route('/regester').post(request.userRegester )
+router.route('/regester').post(request.userRegister )
 router.route('/login').post(request.userLogin )
-router.route('/create-subscription').post(request.subscribeUser)
+router.route('/createorder').post(request.createOrder)
+router.route('/verify').post(request.verifyPayment)
+
 
 export default router;

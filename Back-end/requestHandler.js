@@ -3,9 +3,12 @@ import pkg from 'jsonwebtoken'
 import user from './Modeles/user.model.js'
 import bcrypt from 'bcrypt'
 import Razorpay from 'razorpay'
+// const Razorpay = require('razorpay');
+import env from 'dotenv'
+import crypto from 'crypto'
 
 
-console.log('Key ID:', process.env.RAZORPAY_KEY_ID);
+// console.log('Key ID:', process.env.RAZORPAY_KEY_ID);
 
 export async function addCountry(req,res) {
     try {
@@ -49,31 +52,28 @@ export async function getData(req,res){
     }
 }
 
-export async function userRegester(req, res) {
-  const { name, email, password, cpassword, referredBy } = req.body;
-  if (!(name && email && password && cpassword && referredBy)) {
-    return res.status(400).send("Please fill in all fields.");
-  }
-  if (password !== cpassword) {
-    return res.status(400).send("Passwords don't match.");
-  }
+
+export async function userRegister(req, res) {
+  const { name, email, password, referredBy, subscriptionId } = req.body;
 
   try {
-      const hashedPassword = await bcrypt.hash(password, 10);
-
-    const newUser = await user.create({
-      email,
+    const newUser = new user({
       name,
-      password: hashedPassword,
+      email,
+      password,
       referredBy,
+      subscriptionStatus: "active",
+      subscriptionId,
     });
 
-    return res.status(200).send("Registration successful!");
+    await newUser.save();
+    res.status(201).json({ success: true, referralCode: newUser.referralCode });
   } catch (error) {
-    console.error(error);
-    return res.status(500).send("An error occurred. Please try again later.");
+    res.status(400).json({ error: "Failed to register user." });
   }
 }
+
+
 
 export async function userLogin(req, res) {
     try {
@@ -128,45 +128,55 @@ export async function userLogin(req, res) {
 
 
   
-// const razorpay = new Razorpay({
-//   key_id: process.env.RAZORPAY_KEY_ID,
-//   key_secret: process.env.RAZORPAY_KEY_SECRET,
-// });
+  // const razorpay = new Razorpay({
+  //   key_id:rzp_test_kZ85G3MYrmQk4J,
+  //   key_secret:xKU1mjuFZg4IZ7dggh8uee8l,
+  // });
 
+  // const razorpay = new Razorpay({
+  //   key_id: process.env.RAZORPAY_KEY_ID,
+  //   key_secret: process.env.RAZORPAY_KEY_SECRET,
+  // });
 
-const razorpay = new Razorpay({
-  key_id: 'rzp_test_kZ85G3MYrmQk4J',       // Replace 'your_key_id' with your actual Razorpay key ID
-  key_secret: 'xKU1mjuFZg4IZ7dggh8uee8l' // Replace 'your_key_secret' with your actual Razorpay key secret
-});
-  export async function subscribeUser(req,res){
-    const { userId, planId, planName, amount } = req.body;
+  const razorpay = new Razorpay({
+    key_id: "rzp_test_kZ85G3MYrmQk4J",
+    key_secret: "xKU1mjuFZg4IZ7dggh8uee8l", 
+  });
+  
+export async function createOrder(req,res){
+  const { email, name } = req.body;
+  const amount = 50000;
+
+  const options = {
+    amount,
+    currency: "INR",
+    receipt: `${email}_${Date.now()}`,
+  };
 
   try {
-    const user = await user.findById(userId);
-    if (!user) return res.status(404).json({ message: "User not found" });
-
-    const subscription = await razorpay.subscriptions.create({
-      plan_id: planId,
-      customer_notify: 1,
-      total_count: 12, 
-    });
-
-    user.subscription = {
-      plan: planName,
-      amount,
-      status: "pending",
-      subscriptionId: subscription.id,
-    };
-    await user.save();
-
-    res.status(200).json({
-      subscriptionId: subscription.id,
-      status: user.subscription.status,
-      plan: user.subscription.plan,
-    });
+    const order = await razorpay.orders.create(options);
+    res.status(200).json(order);
   } catch (error) {
-    console.error("Error creating subscription:", error);
-    res.status(500).json({ message: "Failed to create subscription" });
+    res.status(500).json({ error: "Failed to create Razorpay order." });
   }
+}
 
+
+export async function verifyPayment(req,res){
+  const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
+
+  const keySecret = "your_razorpay_secret";
+  const generatedSignature = crypto
+    .createHmac("sha256", keySecret)
+    .update(`${razorpay_order_id}|${razorpay_payment_id}`)
+    .digest("hex");
+
+  if (generatedSignature === razorpay_signature) {
+    return res.status(200).json({ success: true, subscriptionId: razorpay_payment_id });
+  } else {
+    return res.status(400).json({ success: false });
   }
+}
+
+
+
