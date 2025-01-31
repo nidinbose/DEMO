@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -21,6 +21,7 @@ const Login = () => {
       toast.success('Login successful!');
 
             localStorage.setItem('authToken', response.data.token);
+            localStorage.setItem('userId', response.data.userId);
 
            navigate('/refrel');
     } catch (error) {
@@ -109,7 +110,7 @@ const Login = () => {
               <button type="submit" className="w-full shadow-xl py-2.5 px-4 text-sm font-semibold tracking-wide rounded-md text-white bg-teal-600 hover:bg-green-500 focus:outline-none">
                 Sign in
               </button>
-              <p className="text-gray-800 text-sm text-center mt-6">Don't have an account? <a href="javascript:void(0);" className="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap">Register here</a></p>
+              <p className="text-gray-800 text-sm text-center mt-6">Don't have an account? <Link to={`/regester`}><h1 href="javascript:void(0);" className="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap">Register here</h1></Link> </p>
             </div>
           </form>
         </div>

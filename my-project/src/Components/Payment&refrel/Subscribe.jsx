@@ -29,7 +29,7 @@ const Subscribe = () => {
               </li>
           
             </ul>
-            <Link to={`/regester`}>
+            <Link to={`/login`}>
            <button type="button" class="w-full mt-8 px-5 py-2.5 text-sm text-white bg-gray-800 hover:bg-gray-900 rounded-full">
               Get Started
             </button>
@@ -60,7 +60,7 @@ const Subscribe = () => {
               </li>
              
             </ul>
-            <Link to={`/refrel`}>
+            <Link to={`/login`}>
            <button type="button" class="w-full mt-8 px-5 py-2.5 text-sm text-white bg-gray-800 hover:bg-gray-900 rounded-full">
               Get Started
             </button>
@@ -87,7 +87,7 @@ const Subscribe = () => {
               </li>
         
             </ul>
-           <Link to={`/refrel`}>
+           <Link to={`/login`}>
            <button type="button" class="w-full mt-8 px-5 py-2.5 text-sm text-white bg-gray-800 hover:bg-gray-900 rounded-full">
               Get Started
             </button>

@@ -11,6 +11,8 @@ import Job from './Components/Second/Job'
 import Register from './Components/Authentication/Regester'
 import Login from './Components/Authentication/Login'
 import Refrals from './Components/Payment&refrel/Refrals'
+import AdminLogin from './Components/Admin/Adminlogin'
+import AdminDashboard from './Components/Admin/Admin'
 
 const App = () => {
   return (
@@ -20,7 +22,7 @@ const App = () => {
 <BrowserRouter>
 <Navbar/>
 <Routes>
-
+R
   <Route path='/' Component={Site}/>
   <Route path='/addcountry' Component={AddCountry}/>
   <Route path='/visiting-visa' Component={Visa}/>
@@ -30,6 +32,9 @@ const App = () => {
   <Route path='/login' Component={Login}/>
   <Route path='/country-deatiles/:id' Component={CountryDeatiles}/>
   <Route path='/refrel' Component={Refrals}/>
+  <Route path='/adminlogin' Component={AdminLogin}/>
+  <Route path='/admin' Component={AdminDashboard}/>
+  
 
 
 </Routes>

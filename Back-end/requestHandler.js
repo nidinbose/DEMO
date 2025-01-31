@@ -3,12 +3,13 @@ import pkg from 'jsonwebtoken'
 import user from './Modeles/user.model.js'
 import bcrypt from 'bcrypt'
 import Razorpay from 'razorpay'
-// const Razorpay = require('razorpay');
-import env from 'dotenv'
 import crypto from 'crypto'
+import order from './Modeles/Subscription.model.js'
+import admin from './Modeles/admin.model.js'
+import { error } from 'console'
 
+const {sign}=pkg
 
-// console.log('Key ID:', process.env.RAZORPAY_KEY_ID);
 
 export async function addCountry(req,res) {
     try {
@@ -53,130 +54,234 @@ export async function getData(req,res){
 }
 
 
-export async function userRegister(req, res) {
-  const { name, email, password, referredBy, subscriptionId } = req.body;
+export async function userRegester(req,res){
+  const {name,email,referredBy,password,cpassword,subscription}=req.body;
 
-  try {
-    const newUser = new user({
-      name,
-      email,
-      password,
-      referredBy,
-      subscriptionStatus: "active",
-      subscriptionId,
-    });
+   if(!(name&&email&&referredBy&&password&&cpassword&&subscription))
+    return res.status(400).send("fill all fields")
 
-    await newUser.save();
-    res.status(201).json({ success: true, referralCode: newUser.referralCode });
-  } catch (error) {
-    res.status(400).json({ error: "Failed to register user." });
-  }
+   if(password!==cpassword)
+    return res.status(404).send("password not matched")
+
+bcrypt.hash(password,10).then(async(hpassword)=>{
+user.create({name,password:hpassword,email}).then(()=>{
+    return res.status(201).send({msg:"successfully created"})
+
+})
+.catch((error)=>{
+    return res.status(400).send({error:error})
+})
+}).catch((error)=>{
+res.status(400).send({error:error})
+})
+
+
 }
+
 
 
 
 export async function userLogin(req, res) {
-    try {
+  try {
       const { email, password } = req.body;
-    
+
       if (!email || !password) {
-        return res.status(400).json({
-          msg: "Email or password cannot be empty!"
-        });
+          return res.status(400).json({
+              msg: "Email or password cannot be empty!"
+          });
       }
-  
+
       const usere = await user.findOne({ email });
       if (!usere) {
-        return res.status(400).json({
-          msg: "Invalid email or password!"
-        });
+          return res.status(400).json({
+              msg: "Invalid email or password!"
+          });
       }
-  
+
       const isMatch = await bcrypt.compare(password, usere.password);
-      if (isMatch) {
-               const token = pkg.sign(
+      if (!isMatch) {
+          return res.status(400).json({
+              msg: "Invalid email or password!"
+          });
+      }
+
+   
+      const token = pkg.sign(
           {
-            email: usere.email,
-            userId: usere._id
+              email: usere.email,
+              userId: usere._id
           },
           process.env.JWT_KEY,
-          {
-            expiresIn: "48h"
-          }
-        );
-       
-        return res.status(200).json({
+          { expiresIn: "48h" }
+      );
+
+      return res.status(200).json({
           msg: "Login successful!",
           token,
-          userId: user._id 
-        });
-      }
-  
-      return res.status(400).json({
-        msg: "Invalid email or password!"
+          userId: usere._id,  
+          email: usere.email,  
       });
-  
-    } catch (error) {
+
+  } catch (error) {
       console.error("Login error:", error);
       return res.status(500).json({
-        msg: "An error occurred during login.",
-        error: error.message
+          msg: "An error occurred during login.",
+          error: error.message
       });
-    }
   }
+}
   
-
-
-  
-  // const razorpay = new Razorpay({
-  //   key_id:rzp_test_kZ85G3MYrmQk4J,
-  //   key_secret:xKU1mjuFZg4IZ7dggh8uee8l,
-  // });
-
-  // const razorpay = new Razorpay({
-  //   key_id: process.env.RAZORPAY_KEY_ID,
-  //   key_secret: process.env.RAZORPAY_KEY_SECRET,
-  // });
-
-  const razorpay = new Razorpay({
-    key_id: "rzp_test_kZ85G3MYrmQk4J",
-    key_secret: "xKU1mjuFZg4IZ7dggh8uee8l", 
-  });
+ 
   
 export async function createOrder(req,res){
-  const { email, name } = req.body;
-  const amount = 50000;
-
   const options = {
-    amount,
+    amount: 100000,
     currency: "INR",
-    receipt: `${email}_${Date.now()}`,
+    receipt: crypto.randomBytes(10).toString("hex"),
   };
 
   try {
+    const razorpay = new Razorpay({
+      key_id: process.env.RAZORPAY_KEY_ID,
+      key_secret: process.env.RAZORPAY_KEY_SECRET,
+    });
     const order = await razorpay.orders.create(options);
-    res.status(200).json(order);
+    res.json(order);
   } catch (error) {
-    res.status(500).json({ error: "Failed to create Razorpay order." });
-  }
-}
-
-
-export async function verifyPayment(req,res){
-  const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
-
-  const keySecret = "your_razorpay_secret";
-  const generatedSignature = crypto
-    .createHmac("sha256", keySecret)
-    .update(`${razorpay_order_id}|${razorpay_payment_id}`)
-    .digest("hex");
-
-  if (generatedSignature === razorpay_signature) {
-    return res.status(200).json({ success: true, subscriptionId: razorpay_payment_id });
-  } else {
-    return res.status(400).json({ success: false });
+    res.status(500).json({ message: "Error creating order", error });
   }
 }
 
 
 
+
+export async function verifyPayment(req, res) {
+  const { razorpay_order_id, razorpay_payment_id, razorpay_signature, userId } = req.body;
+
+  try {
+    // Check if the user already has an order
+    const existingOrder = await order.findOne({ userId });
+
+    if (existingOrder) {
+      return res.status(400).json({ success: false, message: "User already has a subscription" });
+    }
+
+    // Generate expected signature
+    const body = razorpay_order_id + "|" + razorpay_payment_id;
+    const expectedSignature = crypto
+      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
+      .update(body)
+      .digest("hex");
+
+    if (expectedSignature === razorpay_signature) {
+      const subscription = new order({
+        userId,
+        paymentId: razorpay_payment_id,
+        orderId: razorpay_order_id,
+        amount: 100,
+        status: "Success",
+      });
+
+      await subscription.save();
+      return res.json({ success: true, message: "Payment verified", subscription });
+    } else {
+      return res.status(400).json({ success: false, message: "Invalid Signature" });
+    }
+  } catch (error) {
+    console.error("Payment verification error:", error);
+    return res.status(500).json({ success: false, message: "Server error" });
+  }
+}
+
+
+
+export async function adminRegester(req,res){
+  const {username,email,password,cpassword,role}=req.body
+
+  if(!(email,password,cpassword,username,role))
+    return res.status(400).send("fields required")
+
+  if((password!==cpassword))
+    return res.status(400).send("passwords dont match")
+
+  bcrypt.hash(password,10).then(async(hpassword)=>{
+    await admin.create({username,email,password:hpassword,role}).then(()=>{
+      return res.status(200).send("Created admin")
+    }).catch((error)=>{
+      return res.status(500).send("internal error")
+    })
+  })
+}
+
+export async function adminLogin(req, res) {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ msg: "Email or password cannot be empty!" });
+    }
+
+    const adminUser = await admin.findOne({ email });
+    if (!adminUser) {
+      return res.status(400).json({ msg: "Invalid email or password!" });
+    }
+
+    const isMatch = await bcrypt.compare(password, adminUser.password);
+    if (!isMatch) {
+      return res.status(400).json({ msg: "Invalid email or password!" });
+    }
+
+    const token = pkg.sign(
+      { email: adminUser.email, adminId: adminUser._id, role: adminUser.role },
+      process.env.JWT_KEY,
+      { expiresIn: "48h" }
+    );
+
+    return res.status(200).json({
+      msg: "Login successful!",
+      token,
+      userId: adminUser._id,
+      role: adminUser.role
+    });
+  } catch (error) {
+    console.error("Admin login error:", error);
+    return res.status(500).json({ msg: "An error occurred during login." });
+  }
+}
+
+export async function adminHomeLog(req, res) {
+  try {
+        const token = req.headers.authorization?.split(" ")[1];
+
+    if (!token) {
+      return res.status(401).json({ msg: 'Unauthorized access. No token provided.' });
+    }
+      const decoded = pkg.verify(token, process.env.JWT_KEY);
+    const { userId, email, role } = decoded;
+
+    const user = await admin.findOne({ _id: userId }, { password: 0 });
+
+    if (!user) {
+      return res.status(404).json({ msg: 'User not found' });
+    }
+
+    const { username} = user;
+
+    return res.status(200).json({
+      msg: 'User profile found',
+      user: {
+        email,
+        username,
+        role,
+        token
+      }
+    });
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    return res.status(500).json({
+      msg: 'An error occurred!',
+      error: error.message
+    });
+  }
+}
+  
