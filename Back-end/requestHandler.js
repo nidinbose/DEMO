@@ -6,7 +6,8 @@ import Razorpay from 'razorpay'
 import crypto from 'crypto'
 import order from './Modeles/Subscription.model.js'
 import admin from './Modeles/admin.model.js'
-import { error } from 'console'
+import news from './/Modeles/news.model.js'
+
 
 const {sign}=pkg
 
@@ -249,39 +250,58 @@ export async function adminLogin(req, res) {
   }
 }
 
-export async function adminHomeLog(req, res) {
+export async function Home(req, res) {
+ 
   try {
-        const token = req.headers.authorization?.split(" ")[1];
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) return res.status(401).json({ msg: "Unauthorized!" });
 
-    if (!token) {
-      return res.status(401).json({ msg: 'Unauthorized access. No token provided.' });
-    }
-      const decoded = pkg.verify(token, process.env.JWT_KEY);
-    const { userId, email, role } = decoded;
+    const decoded = pkg.verify(token, process.env.JWT_KEY);
+    const users = await user.findById(decoded.userId).select("-password");
 
-    const user = await admin.findOne({ _id: userId }, { password: 0 });
+    if (!users) return res.status(404).json({ msg: "User not found!" });
 
-    if (!user) {
-      return res.status(404).json({ msg: 'User not found' });
-    }
-
-    const { username} = user;
-
-    return res.status(200).json({
-      msg: 'User profile found',
-      user: {
-        email,
-        username,
-        role,
-        token
-      }
-    });
-  } catch (error) {
-    console.error("Error fetching user data:", error);
-    return res.status(500).json({
-      msg: 'An error occurred!',
-      error: error.message
-    });
-  }
+    res.status(200).json(users);
+} catch (error) {
+    res.status(500).json({ msg: "Failed to fetch user!", error: error.message });
+}
+   
 }
   
+
+export async function getSub(req, res) {
+  try {
+    const { id } = req.params; 
+
+    const data = await order.findOne({ userId: id }); 
+
+    if (!data) {
+      return res.status(404).json({ msg: "Subscription not found!" });
+    }
+
+    return res.status(200).json(data);
+  } catch (error) {
+    console.error("Error fetching subscription:", error);
+    return res.status(500).json({ msg: "Internal server error", error: error.message });
+  }
+}
+
+
+export async function addNews(req,res){
+  const {image,title}=req.body
+  if(!(image&&title))
+    return res.status(400).send("fields missing")
+  await news.create({image,title})
+  return res.status(200).send("created ")
+
+}
+
+export async function getNews(req,res){
+  try {
+    const data=await news.find({}).then((data)=>{
+      return res.status(200).send(data)
+    }) 
+  } catch (error) {
+    return res.status(500).send("error in getting news")
+  }
+}

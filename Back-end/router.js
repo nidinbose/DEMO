@@ -13,7 +13,10 @@ router.route('/login').post(request.userLogin )
 router.route('/adminsignin').post(request.adminLogin )
 router.route('/createorder').post(request.createOrder)
 router.route('/verify').post(request.verifyPayment)
-router.route('/home').get(Auth,request.adminHomeLog)
+router.route('/home').get(Auth,request.Home)
+router.route('/getsub/:id').get(request.getSub)
+router.route('/addnews').post(request.addNews)
+router.route('/getnews').get(request.getNews)
 
 
 export default router;

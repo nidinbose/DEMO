@@ -20,7 +20,7 @@ const Login = () => {
       const response = await axios.post("http://localhost:3003/api/login", formData);
       toast.success('Login successful!');
 
-            localStorage.setItem('authToken', response.data.token);
+      localStorage.setItem("token", response.data.token);
             localStorage.setItem('userId', response.data.userId);
 
            navigate('/refrel');
@@ -32,7 +32,7 @@ const Login = () => {
   return (
     <div className="font-[sans-serif] bg-white flex items-center justify-center md:h-screen p-4">
       <ToastContainer />
-      <div className=" border max-w-6xl max-md:max-w-lg rounded-md p-6">
+      <div className=" border max-w-6xl max-md:max-w-lg  p-6">
         <a href="javascript:void(0)">
        
         </a>
@@ -110,7 +110,10 @@ const Login = () => {
               <button type="submit" className="w-full shadow-xl py-2.5 px-4 text-sm font-semibold tracking-wide rounded-md text-white bg-teal-600 hover:bg-green-500 focus:outline-none">
                 Sign in
               </button>
-              <p className="text-gray-800 text-sm text-center mt-6">Don't have an account? <Link to={`/regester`}><h1 href="javascript:void(0);" className="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap">Register here</h1></Link> </p>
+              <div>
+                <p className="text-gray-800 text-sm text-center mt-6 flex">Don't have an account? <Link to={`/regester`}><h1 href="javascript:void(0);" className="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap">Register here</h1></Link> </p>
+                <p className="text-gray-800 text-sm text-center mt-6 flex">Are you an admin <Link to={`/adminlogin`}><h1 href="javascript:void(0);" className="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap">Login</h1></Link> </p>
+              </div>
             </div>
           </form>
         </div>

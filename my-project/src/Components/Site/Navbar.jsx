@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
 import { IoSearchSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
-
+import { FaUser } from "react-icons/fa";
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -169,11 +169,11 @@ const Navbar = () => {
               Immigration
             </a>
           </div>
-          <div className="group text-center w-32 flex items-center justify-center h-12 border hover:bg-red-400 hover:border-red-500">
-            <a href="#link5" className="text-gray-800 group-hover:text-white font-semibold">
-              <IoSearchSharp className="w-5 h-6" />
-            </a>
+        <Link to={`/user`}>
+        <div className="group text-center w-32 flex items-center justify-center h-12 border hover:bg-red-400 hover:border-red-500">
+          <FaUser className="mr-1"/> User
           </div>
+        </Link>
         </div>
       </nav>
     </>

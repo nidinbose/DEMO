@@ -13,6 +13,9 @@ import Login from './Components/Authentication/Login'
 import Refrals from './Components/Payment&refrel/Refrals'
 import AdminLogin from './Components/Admin/Adminlogin'
 import AdminDashboard from './Components/Admin/Admin'
+import UserProfile from './Components/Authentication/Userprofile'
+import Addnews from './Components/Addnews'
+import AdminRegister from './Components/Admin/Adminregester'
 
 const App = () => {
   return (
@@ -25,6 +28,8 @@ const App = () => {
 R
   <Route path='/' Component={Site}/>
   <Route path='/addcountry' Component={AddCountry}/>
+  <Route path='/addnews' Component={Addnews}/>
+  <Route path='/adminregester' Component={AdminRegister}/>
   <Route path='/visiting-visa' Component={Visa}/>
   <Route path='/study' Component={Study}/>
   <Route path='/job' Component={Job}/>
@@ -34,6 +39,7 @@ R
   <Route path='/refrel' Component={Refrals}/>
   <Route path='/adminlogin' Component={AdminLogin}/>
   <Route path='/admin' Component={AdminDashboard}/>
+  <Route path='/user' Component={UserProfile}/>
   
 
 
