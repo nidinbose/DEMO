@@ -40,6 +40,8 @@ const Admin = () => {
             { path: "/addcountry", name: "Add Country" },
             { path: "/addnews", name: "Add News" },
             { path: "/adminregester", name: "Add Admin" },
+            { path: "/countries", name: "Countries" },
+            { path: "/news", name: "Newses" },
             { path: "/refrels", name: "Referrals" },
           ].map((item, index) => (
             <Link key={index} to={item.path}>

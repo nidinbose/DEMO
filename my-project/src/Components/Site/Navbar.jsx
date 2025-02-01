@@ -114,16 +114,20 @@ const Navbar = () => {
             </a>
           </div>
          </Link>
-          <div className="group text-center w-full flex items-center justify-center h-12 border hover:bg-yellow-400 hover:border-yellow-500 mb-2">
+         <Link to={`/immigration`} className="w-full">
+         <div className="group text-center w-full flex items-center justify-center h-12 border hover:bg-yellow-400 hover:border-yellow-500 mb-2">
             <a href="#link4" className="text-gray-800 group-hover:text-white font-semibold">
               Immigration
             </a>
           </div>
-          <div className="group text-center w-full flex items-center justify-center h-12 border hover:bg-red-400 hover:border-red-500 mb-2">
+         </Link>
+         <Link to={`/user`} className="w-full">
+         <div className="group text-center w-full flex items-center justify-center h-12 border hover:bg-red-400 hover:border-red-500 mb-2">
             <a href="#link5" className="text-gray-800 group-hover:text-white font-semibold">
-              <IoSearchSharp className="w-5 h-6" />
+             User
             </a>
           </div>
+         </Link>
           <div className="flex items-center pr-4">
             <FaPhoneAlt className="text-lg mr-2" />
             <a href="tel:+123456789" className="text-red-500">Call: 123456789</a>
@@ -164,11 +168,13 @@ const Navbar = () => {
             </a>
           </div>
         </Link>
-          <div className="group text-center w-32 flex items-center justify-center h-12 border hover:bg-yellow-400 hover:border-yellow-500">
+         <Link to={`/immigration`}>
+         <div className="group text-center w-32 flex items-center justify-center h-12 border hover:bg-yellow-400 hover:border-yellow-500">
             <a href="#link4" className="text-gray-800 group-hover:text-white font-semibold">
               Immigration
             </a>
           </div>
+         </Link>
         <Link to={`/user`}>
         <div className="group text-center w-32 flex items-center justify-center h-12 border hover:bg-red-400 hover:border-red-500">
           <FaUser className="mr-1"/> User

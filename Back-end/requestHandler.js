@@ -26,6 +26,26 @@ export async function addCountry(req,res) {
     }
 }
 
+export async function deleteCountry(req, res) {
+  try {
+      const { id } = req.params;
+      if (!id) {
+          return res.status(400).json({ error: "Country ID is required." });
+      }
+
+      const deletedCountry = await countrySchema.findByIdAndDelete(id);
+      if (!deletedCountry) {
+          return res.status(404).json({ error: "Country not found." });
+      }
+
+      return res.status(200).json({ message: "Country deleted successfully." });
+  } catch (error) {
+      console.error("Error in deleteCountry:", error.message);
+      return res.status(500).json({ error: "An error occurred while deleting the country." });
+  }
+}
+
+
 export async function getCountry(req,res){
     try {
         const data=await countrySchema.find({}).then((data)=>{
@@ -160,14 +180,14 @@ export async function verifyPayment(req, res) {
   const { razorpay_order_id, razorpay_payment_id, razorpay_signature, userId } = req.body;
 
   try {
-    // Check if the user already has an order
+    
     const existingOrder = await order.findOne({ userId });
 
     if (existingOrder) {
       return res.status(400).json({ success: false, message: "User already has a subscription" });
     }
 
-    // Generate expected signature
+    
     const body = razorpay_order_id + "|" + razorpay_payment_id;
     const expectedSignature = crypto
       .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
@@ -303,5 +323,25 @@ export async function getNews(req,res){
     }) 
   } catch (error) {
     return res.status(500).send("error in getting news")
+  }
+}
+
+
+export async function deleteNews(req, res) {
+  try {
+      const { id } = req.params;
+      if (!id) {
+          return res.status(400).json({ error: "Country ID is required." });
+      }
+
+      const deletedNews = await news.findByIdAndDelete(id);
+      if (!deletedNews) {
+          return res.status(404).json({ error: "Country not found." });
+      }
+
+      return res.status(200).json({ message: "Country deleted successfully." });
+  } catch (error) {
+      console.error("Error in deleteCountry:", error.message);
+      return res.status(500).json({ error: "An error occurred while deleting the country." });
   }
 }

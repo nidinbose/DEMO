@@ -17,6 +17,9 @@ router.route('/home').get(Auth,request.Home)
 router.route('/getsub/:id').get(request.getSub)
 router.route('/addnews').post(request.addNews)
 router.route('/getnews').get(request.getNews)
+router.route('/deletenews/:id').delete(request.deleteNews)
+router.route('/deletecountry/:id').delete(request.deleteCountry)
+
 
 
 export default router;

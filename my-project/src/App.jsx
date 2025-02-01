@@ -16,6 +16,10 @@ import AdminDashboard from './Components/Admin/Admin'
 import UserProfile from './Components/Authentication/Userprofile'
 import Addnews from './Components/Addnews'
 import AdminRegister from './Components/Admin/Adminregester'
+import Immigration from './Components/Second/Imigration'
+import Country from './Components/Admin/Country'
+import Countries from './Components/Admin/Country'
+import News from './Components/Admin/News'
 
 const App = () => {
   return (
@@ -32,6 +36,7 @@ R
   <Route path='/adminregester' Component={AdminRegister}/>
   <Route path='/visiting-visa' Component={Visa}/>
   <Route path='/study' Component={Study}/>
+  <Route path='/immigration' Component={Immigration}/>
   <Route path='/job' Component={Job}/>
   <Route path='/regester' Component={Register}/>
   <Route path='/login' Component={Login}/>
@@ -40,6 +45,8 @@ R
   <Route path='/adminlogin' Component={AdminLogin}/>
   <Route path='/admin' Component={AdminDashboard}/>
   <Route path='/user' Component={UserProfile}/>
+  <Route path='/countries' Component={Countries}/>
+  <Route path='/news' Component={News}/>
   
 
 

@@ -1,92 +1,69 @@
-import React, { useEffect, useState } from 'react';
-import emailjs from 'emailjs-com';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import React, { useState } from "react";
+import emailjs from "emailjs-com";
+import S1 from "../StudyVisa/S1";
+import S2 from "../StudyVisa/S2";
 
-const CountryDetails = () => {
-  const [data, setData] = useState({});
+
+const Immigration = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    visatype: '',
-    country: '',
-    countryCode: '+91',
-    phone: '',
-    email: '',
+    name: "",
+    visatype: "immigration",
+    country: "",
+    countryCode: "",
+    phone: "",
+    email: "",
     terms: false,
   });
-  const { id } = useParams();
-
-  const getData = async () => {
-    console.log(id);
-    const res = await axios.get(`http://localhost:3003/api/getdatas/${id}`);
-    console.log(res.data);
-    setData({ ...res.data });
-  };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    const { name, value, type, checked } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
-  const handleSubmit = (e) => {
+    const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!formData.terms) {
-      alert('You must accept the terms and conditions.');
-      return;
-    }
-
-    const templateParams = {
+     const templateParams = {
       name: formData.name,
       visatype: formData.visatype,
-      country: data.Country,
+      country: formData.country,
       countryCode: formData.countryCode,
       phone: formData.phone,
       email: formData.email,
+      terms: formData.terms ? "Accepted" : "Not Accepted",
     };
 
-   
     emailjs
-      .send(
-        'service_r74e53r', 
-        'template_y8v5nz9', 
-        templateParams,
-        'DXIWuxbV9blr57MhN' 
-      )
+      .send("service_r74e53r", "template_y8v5nz9", templateParams, "DXIWuxbV9blr57MhN")
       .then(
         (response) => {
-          console.log('SUCCESS!', response.status, response.text);
-          alert('Form submitted successfully!');
-        },
+          console.log("Email sent successfully!", response);
+                },
         (error) => {
-          console.log('FAILED...', error);
-          alert('Failed to submit the form. Please try again.');
+          console.error("Email sending failed!", error);
         }
       );
   };
 
-  useEffect(() => {
-    getData();
-  }, []);
-
   return (
-    <div>
+    <div className="bg-white min-h-full mx-auto p-3 sm:px-6 md:px-12">
       <div className="container max-w-full bg-white overflow-hidden grid grid-cols-1 lg:grid-cols-2 gap-6 md:p-12 border">
         <div className="relative">
           <img
-            src="https://www.y-axis.com/assets/cms/2024-12/Visa-page-banner.webp"
+            src="https://img2.exportersindia.com/product_images/bc-full/2020/4/7027035/study-visa-service-1585986358-5357633.jpg"
             alt="Visa Banner"
             className="w-full h-full object-cover"
           />
           <div className="absolute bg-black bg-opacity-70 flex items-center justify-center"></div>
         </div>
-
         <div className="p-6 sm:p-8 lg:p-12 border">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-800 mb-6 text-center">
-            Apply for a Visa
+            Where you want to immigrate ?
           </h2>
           <form className="space-y-6 p-7" onSubmit={handleSubmit}>
-            <img src={data.photo} alt="" className='w-17 h-16' />
             <div className="flex flex-col sm:flex-row items-center gap-4">
               <label className="block text-gray-700 font-medium text-sm sm:text-md w-full sm:w-36">
                 I am
@@ -113,14 +90,10 @@ const CountryDetails = () => {
                 onChange={handleChange}
                 className="w-full sm:w-60 text-gray-800 bg-transparent border-none border-b-2 border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-0 py-2 px-4"
               >
-                <option value="" disabled>
-                  Choose visa type
-                </option>
-                <option value="tourist">Tourist Visa</option>
-                <option value="business">Business Visa</option>
-                <option value="study">Study Visa</option>
-                <option value="work">Work Visa</option>
-                <option value="immigration">Immigration Visa</option>
+            
+              
+                <option value="study">Immigration</option>
+             
               </select>
               <label className="block text-gray-700 font-medium text-sm sm:text-md w-full sm:w-36">
                 Visa For
@@ -136,9 +109,16 @@ const CountryDetails = () => {
                 onChange={handleChange}
                 className="w-full sm:w-60 text-gray-800 bg-transparent border-none border-b-2 border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-0 py-2 px-4"
               >
-               
-                <option value="usa">{data.Country}</option>
-             
+                <option value="" disabled>
+                  Select country
+                </option>
+                <option value="usa">United States</option>
+                <option value="canada">Canada</option>
+                <option value="uk">United Kingdom</option>
+                <option value="australia">Australia</option>
+                <option value="india">India</option>
+                <option value="germany">Germany</option>
+                <option value="france">France</option>
               </select>
             </div>
             <div className="flex flex-col sm:flex-row items-center gap-4">
@@ -202,31 +182,12 @@ const CountryDetails = () => {
               Submit
             </button>
           </form>
-         
         </div>
-  
-
-
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-6">
-
-  <div className=" p-6 w-full mx-auto p-7 ">
-    {/* <h1 className="text-4xl font-bold text-red-700 mb-4">{data.Country}</h1> */}
-    <h2 className="text-4xl font-extrabold text-gray-800 mb-2">{data.Heading}</h2>
-    <h4 className="text-gray-600 font-semibold mb-4">{data.About}</h4>
-    <p className="text-gray-500 text-base leading-relaxed mb-6">{data.Paragraph}</p>
-    <a href="#" className="inline-block">
-  {/* <button className="px-6 py-2 text-red-500 hover:text-white  hover:bg-red-600 border border-red-500 font-medium  transition-all duration-300 ease-in-out">
-    Read More
-  </button> */}
-</a>
-
-  </div>
-  
-
-</div>
-    </div>
+      <S1/>
+      <S2/>
+         </div>
   );
 };
 
-export default CountryDetails;
+export default Immigration;
